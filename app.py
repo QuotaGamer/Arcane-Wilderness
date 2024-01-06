@@ -28,12 +28,8 @@ def on_mouse_release(*args) -> None:
 @game.event
 def on_draw() -> None:
     global direction #:skull:
-    if "f" in keys:
-        print(f"{Fore.GREEN}[Game]{Fore.WHITE} F pressed; this should be an attack.")
-    print(f"{Fore.GREEN}[rect1]{Fore.WHITE} Current direction: {direction}")
     colliding:tuple=rect1.collides_with(rect2)
     if colliding==[]:
-        print(keys)
         direction=rect1.movement(keys, 5)
         print(f"{Fore.GREEN}[rect1]{Fore.WHITE} No collision.")
     else:
@@ -46,6 +42,9 @@ def on_draw() -> None:
             rect1.x+=5
         if "Left" in colliding:
             rect1.x-=5
+    if "f" in keys:
+        print(f"{Fore.GREEN}[Game]{Fore.WHITE} F pressed; this should be an attack.")
+    print(f"{Fore.GREEN}[rect1]{Fore.WHITE} Current direction: {direction}")
     game.update()
 @game.event
 def on_key_press(key, bs) -> None:

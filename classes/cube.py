@@ -22,7 +22,7 @@ class Rectangle(pyglet.shapes.Rectangle):
             self.x+=speed
             self.last="Right"
             return "Right"
-        return self.last
+        #return self.last
     def collides_with(self, other):
         x_overlap = max(0, min(self.x + self.width, other.x + other.width) - max(self.x, other.x))
         y_overlap = max(0, min(self.y + self.height, other.y + other.height) - max(self.y, other.y))
