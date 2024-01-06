@@ -6,10 +6,22 @@ class Rectangle(pyglet.shapes.Rectangle):
         self.last="None"
     def movement(self, keylist=list, speed=int):
         """MUST BE chr(key)"""
-        if "w" in keylist: self.y+=speed; self.last="Up"; return "Up"
-        if "a" in keylist: self.x-=speed; self.last="Left"; return "Left"
-        if "s" in keylist: self.y-=speed; self.last="Down"; return "Down"
-        if "d" in keylist: self.x+=speed; self.last="Right"; return "Right"
+        if "w" in keylist:
+            self.y+=speed
+            self.last="Up"
+            return "Up"
+        if "a" in keylist:
+            self.x-=speed
+            self.last="Left"
+            return "Left"
+        if "s" in keylist:
+            self.y-=speed
+            self.last="Down"
+            return "Down"
+        if "d" in keylist:
+            self.x+=speed
+            self.last="Right"
+            return "Right"
         return self.last
     def collides_with(self, other):
         x_overlap = max(0, min(self.x + self.width, other.x + other.width) - max(self.x, other.x))
