@@ -2,30 +2,33 @@ import pyglet
 from classes.cube import Rectangle
 from classes.window import Window
 from colorama import Fore
-
 game=Window(640, 480, True, True)
 keys:list=[]
+clickedat:list=[]
 rect1= Rectangle(50, 50, 50, 50, batch=game.batch)
 rect2= Rectangle(75, 75, 50, 80, batch=game.batch)
 @game.event
-def on_mouse_press(x, y, button, bs):
-    print(x, y, button)
+def on_mouse_press(x, y, button, bs) -> None:
     if x > rect1.x:
-        print(f"{Fore.GREEN}[Cursor]{Fore.WHITE} Clicked LEFT")
+        clickedat.append("Left")
     else:
-        print(f"{Fore.GREEN}[Cursor]{Fore.WHITE} Clicked RIGHT")
+        clickedat.append("Right")
     if y > rect1.y:
-        print(f"{Fore.GREEN}[Cursor]{Fore.WHITE} Clicked UP")
+        clickedat.append("Up")
     else:
-        print(f"{Fore.GREEN}[Cursor]{Fore.WHITE} Clicked DOWN")
+        clickedat.append("Down")
+    print(f"{Fore.GREEN}[Cursor] {Fore.WHITE}Clicked at: {clickedat}")
+@game.event
+def on_mouse_release(*args) -> None:
+    clickedat.clear()
+
 
 @game.event
 def on_draw() -> None:
-    game.update()
     if "f" in keys:
         print(f"{Fore.GREEN}[Game]{Fore.WHITE} F pressed; this should be an attack.")
     direction=rect1.movement(keys, 5)
-    print(direction)
+    print(f"{Fore.GREEN}[rect1]{Fore.WHITE} Current direction: {direction}")
     colliding:tuple=rect1.collides_with(rect2)
     if colliding==False:
         rect1.movement(keys, 5)
@@ -40,6 +43,7 @@ def on_draw() -> None:
             rect1.x+=5
         if "Left" in colliding:
             rect1.x-=5
+    game.update()
 @game.event
 def on_key_press(key, bs) -> None:
     keys.append(chr(key))
