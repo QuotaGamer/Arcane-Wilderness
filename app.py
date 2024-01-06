@@ -4,6 +4,7 @@ from classes.window import Window
 from colorama import Fore
 game = Window(640, 480, True, True)
 keys:list=[]
+debugcollision=False
 global direction
 direction=""
 clickedat:list=[]
@@ -29,9 +30,10 @@ def on_mouse_release(*args) -> None:
 def on_draw() -> None:
     global direction #:skull:
     colliding:tuple=rect1.collides_with(rect2)
+    direction=rect1.movement(keys, 5)
     if colliding==[]:
-        direction=rect1.movement(keys, 5)
-        print(f"{Fore.GREEN}[rect1]{Fore.WHITE} No collision.")
+        if debugcollision: print(f"{Fore.GREEN}[rect1]{Fore.WHITE} No collision.")
+        pass
     else:
         print(f"{Fore.GREEN}[rect1]{Fore.WHITE} Collision: {colliding}")
         if "Up" in colliding:
