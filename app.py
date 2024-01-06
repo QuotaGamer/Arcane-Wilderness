@@ -7,7 +7,6 @@ game=Window(640, 480, True, True)
 keys:list=[]
 rect1= Rectangle(50, 50, 50, 50, batch=game.batch)
 rect2= Rectangle(75, 75, 50, 80, batch=game.batch)
-
 @game.event
 def on_mouse_press(x, y, button, bs):
     print(x, y, button)
@@ -25,7 +24,8 @@ def on_draw() -> None:
     game.update()
     if "f" in keys:
         print(f"{Fore.GREEN}[Game]{Fore.WHITE} F pressed; this should be an attack.")
-    rect1.movement(keys, 5)
+    direction=rect1.movement(keys, 5)
+    print(direction)
     colliding:tuple=rect1.collides_with(rect2)
     if colliding==False:
         rect1.movement(keys, 5)
