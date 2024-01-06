@@ -3,14 +3,23 @@ from classes.cube import Rectangle
 from classes.window import Window
 from colorama import Fore
 
-game:classmethod=Window(640, 480, True, True)
+game=Window(640, 480, True, True)
 keys:list=[]
-rect1:classmethod= Rectangle(50, 50, 50, 50, batch=game.batch)
-rect2:classmethod= Rectangle(75, 75, 50, 80, batch=game.batch)
+rect1= Rectangle(50, 50, 50, 50, batch=game.batch)
+rect2= Rectangle(75, 75, 50, 80, batch=game.batch)
+clicking= False
+
+@game.event
+def on_mouse_press(x, y, button, bs):
+    print(x, y, button)
+    #clicking=True
 
 @game.event
 def on_draw() -> None:
     game.update()
+    if "f" in keys:
+        print(f"{Fore.GREEN}[Game]{Fore.WHITE} F pressed; this should be an attack.")
+    #print(clicking)
     rect1.movement(keys, 5)
     colliding:tuple=rect1.collides_with(rect2)
     if colliding==False:
