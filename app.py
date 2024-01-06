@@ -7,19 +7,24 @@ game=Window(640, 480, True, True)
 keys:list=[]
 rect1= Rectangle(50, 50, 50, 50, batch=game.batch)
 rect2= Rectangle(75, 75, 50, 80, batch=game.batch)
-clicking= False
 
 @game.event
 def on_mouse_press(x, y, button, bs):
     print(x, y, button)
-    #clicking=True
+    if x > rect1.x:
+        print(f"{Fore.GREEN}[Cursor]{Fore.WHITE} Clicked LEFT")
+    else:
+        print(f"{Fore.GREEN}[Cursor]{Fore.WHITE} Clicked RIGHT")
+    if y > rect1.y:
+        print(f"{Fore.GREEN}[Cursor]{Fore.WHITE} Clicked UP")
+    else:
+        print(f"{Fore.GREEN}[Cursor]{Fore.WHITE} Clicked DOWN")
 
 @game.event
 def on_draw() -> None:
     game.update()
     if "f" in keys:
         print(f"{Fore.GREEN}[Game]{Fore.WHITE} F pressed; this should be an attack.")
-    #print(clicking)
     rect1.movement(keys, 5)
     colliding:tuple=rect1.collides_with(rect2)
     if colliding==False:
